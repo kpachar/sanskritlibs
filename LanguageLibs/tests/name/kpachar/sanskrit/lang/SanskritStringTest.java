@@ -8,9 +8,10 @@ public class SanskritStringTest {
 
 	@Test
 	public void test() {
-		String str=new SanskritString("कृष्ण").toCanonicalString();
-		System.out.println(str);
-		assertEquals(str, "क्ऋष्ण्अ");
+		SanskritString str = new SanskritString("श्रीकृष्णः");
+		System.out.println(str.toCanonicalString());
+		System.out.println(SanskritString.toString(str.getCodepoints()));
+		assertEquals(str.toCanonicalString(), "श्"+"र्"+"ई"+"क्ऋष्"+"ण्अः");
 		
 	}
 

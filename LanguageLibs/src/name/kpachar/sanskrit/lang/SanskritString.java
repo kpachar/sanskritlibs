@@ -18,7 +18,40 @@ public class SanskritString {
 	public String toCanonicalString(){
 		return new String(codepoints, 0, codepoints.length);
 	}
-	 
+	public String getOriginalString(){
+		return originalString;
+	}
+	public int[] getCodepoints(){
+		return codepoints;
+	}
+	public static String toString(int[] codepoints){
+		List<Integer> out = new ArrayList<Integer>();
+		for(int i=0; i<codepoints.length; i++){
+			int n=0;
+			if(i<codepoints.length-1){
+				n=codepoints[i+1];
+			}
+			if(codepoints[i]==0x94d){
+				int modifier = getModifier(n);
+				if(modifier==-1){
+					i++;
+					continue;
+				}
+				if(modifier!=0){
+					out.add(modifier);
+					i++;
+					continue;
+				}
+			}
+			out.add(codepoints[i]);
+		}
+		int[] intArray = new int[out.size()];
+		for(int i=0; i<out.size(); i++){
+			intArray[i]=out.get(i);
+		}
+		return new String(intArray, 0, intArray.length);
+	}
+	
 	@Override
 	public boolean equals(Object obj) {
 		if(this==obj){
@@ -43,8 +76,7 @@ public class SanskritString {
 	}
 	@Override
 	public String toString() {
-		// TODO Auto-generated method stub
-		return super.toString();
+		return SanskritString.toString(codepoints);
 	}
 	 private static int[] canonicalize(int[] codepoints){
 		 List<Integer> out = new ArrayList<Integer>();
@@ -312,7 +344,7 @@ public class SanskritString {
 		 if(next==0x919 || next==0x91e || next==0x923 || next==0x929 || next==0x92e){
 			 return 0;
 		 }
-		 return 0x92e;
+		 return 0x902;
 	 }
 	 private static boolean isModifier(int i){
 		 if((i>=0x93e && i<=0x94f) || (i>=0x962 && i<=0x963)){
@@ -320,5 +352,38 @@ public class SanskritString {
 		 }
 		 return false;
 	 }
-	 
+	 private static int getModifier(int swara){
+		 switch(swara){
+		 case 0x905:
+			 return -1;
+		 case 0x906:
+			 return 0x93e;
+		 case 0x907:
+			 return 0x93f;
+		 case 0x908:
+			 return 0x940;
+		 case 0x909:
+			 return 0x941;
+		 case 0x90a:
+			 return 0x942;
+		 case 0x90b:
+			 return 0x943;
+		 case 0x90c:
+			 return 0x962;
+		 case 0x90f:
+			 return 0x947;
+		 case 0x910:
+			 return 0x948;
+		 case 0x913:
+			 return 0x94b;
+		 case 0x914:
+			 return 0x94c;
+		 case 0x960:
+			 return 0x944;
+		 case 0x961:
+			 return 0x963;
+		 default:
+				 return 0;
+		 }
+	 }
 }

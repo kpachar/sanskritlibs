@@ -1,0 +1,6 @@
+# Configuration file for Sandhi
+# सवर्णदीर्घसन्धि
+अ + अ = आ
+इ + इ = ई
+उ + उ = ऊ
+ऋ + ऋ = ॠ
