@@ -12,7 +12,7 @@ public class SanskritString {
 			codepoints=new int[0];
 		}
 		originalString = s;
-		codepoints=canonicalize(s.codePoints().toArray());
+		codepoints=canonicalize(JavaStringUtils.codePoints(s));
 	}
 
 	public String toCanonicalString(){

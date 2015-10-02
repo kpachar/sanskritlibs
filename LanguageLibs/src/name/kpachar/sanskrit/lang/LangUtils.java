@@ -5,7 +5,6 @@ import java.io.InputStreamReader;
 import java.io.LineNumberReader;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.IntConsumer;
 
 public class LangUtils {
 	private static List<SandhiRule> sandhiRules = null;
@@ -32,7 +31,7 @@ public class LangUtils {
 						new SandhiRule(
 									input.split("\\+")[0].trim().codePointAt(0),
 									input.split("\\+")[1].trim().codePointAt(0),
-									output.codePoints().toArray()
+									JavaStringUtils.codePoints(output)
 								)
 						);
 			}
@@ -61,7 +60,7 @@ public class LangUtils {
 		for(int i=1; i<codePointsB.length; i++){
 			sb.append(Character.toChars(codePointsB[i]));
 		}
-		String result = SanskritString.toString(sb.toString().codePoints().toArray());
+		String result = SanskritString.toString(JavaStringUtils.codePoints(sb.toString()));
 		System.out.println(result);
 		return result;
 	}
@@ -78,20 +77,20 @@ public class LangUtils {
 	public static String cleanWhitepsaces(String s){
 		final StringBuffer sb = new StringBuffer();
 		
-		s.codePoints().forEach(new IntConsumer(){
-			@Override
-			public void accept(int arg0) {
-				if(arg0 < 255){
-					sb.append(Character.toChars(arg0));
-					return;
-				}
-				if(Character.isSpaceChar(arg0) || arg0 > 8000){ //TODO: This is ugly. unicode has non-printable stuff spread out here and there. Fix it
-					sb.append(" ");
-				}else{
-					sb.append(Character.toChars(arg0));
-				}
+		int[] codePoints = JavaStringUtils.codePoints(s);
+		
+		for(int cp : codePoints){
+			if(cp < 255){
+				sb.append(Character.toChars(cp));
+				continue;
 			}
-		});
+			if(Character.isSpaceChar(cp) || cp > 8000){ //TODO: This is ugly. unicode has non-printable stuff spread out here and there. Fix it
+				sb.append(" ");
+			}else{
+				sb.append(Character.toChars(cp));
+			}
+		}
+
 		return sb.toString();
 	}
 }
