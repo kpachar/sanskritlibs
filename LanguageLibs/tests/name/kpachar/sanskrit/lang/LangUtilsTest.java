@@ -12,10 +12,14 @@ public class LangUtilsTest {
 		assertEquals(LangUtils.sandhi("भ्रमति", "इव"), "भ्रमतीव");
 		assertEquals(LangUtils.sandhi("गुरु", "उपदेशः"), "गुरूपदेशः");
 		assertEquals(LangUtils.sandhi("पितृ", "ऋणम्"), "पितॄणम्");
-
-		//assertEquals(LangUtils.sandhi("विष्णु", "पदे"), "विष्णुपदे");
-		//assertEquals(LangUtils.sandhi("ईश", "पदे"), "ईशपदे");
-		//assertEquals(LangUtils.sandhi("प्राणी", "ईश"), "प्राणेश");
+		
+		assertEquals(LangUtils.sandhi("स्व", "इच्छा"), "स्वेच्छा");
+		assertEquals(LangUtils.sandhi("रमा", "ईश"), "रमेश");
+		assertEquals(LangUtils.sandhi("युध्य", "इति"), "युध्येति");
+		
+		assertEquals(LangUtils.sandhi("शीत", "उष्ण"), "शीतोष्ण");
+		assertEquals(LangUtils.sandhi("महा", "ऋषि"), "महर्षि");
+		assertEquals(LangUtils.sandhi("देव", "ऋषि"), "देवर्षि");
 		
 	}
 

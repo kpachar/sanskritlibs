@@ -5,6 +5,7 @@ import java.io.InputStreamReader;
 import java.io.LineNumberReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.IntConsumer;
 
 public class LangUtils {
 	private static List<SandhiRule> sandhiRules = null;
@@ -16,6 +17,7 @@ public class LangUtils {
 			LineNumberReader reader = new LineNumberReader(new InputStreamReader(is));
 			String line = null;
 			while((line = reader.readLine())!=null){
+				line = cleanWhitepsaces(line);
 				if(line.matches("^\\s*#")){
 					continue;
 				}
@@ -72,4 +74,25 @@ public class LangUtils {
 		if(result==null)return "";
 		return new String(result, 0, result.length);
 	}
+	
+	public static String cleanWhitepsaces(String s){
+		final StringBuffer sb = new StringBuffer();
+		
+		s.codePoints().forEach(new IntConsumer(){
+			@Override
+			public void accept(int arg0) {
+				if(arg0 < 255){
+					sb.append(Character.toChars(arg0));
+					return;
+				}
+				if(Character.isSpaceChar(arg0) || arg0 > 8000){ //TODO: This is ugly. unicode has non-printable stuff spread out here and there. Fix it
+					sb.append(" ");
+				}else{
+					sb.append(Character.toChars(arg0));
+				}
+			}
+		});
+		return sb.toString();
+	}
 }
+
