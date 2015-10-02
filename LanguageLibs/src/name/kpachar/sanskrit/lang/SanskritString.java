@@ -91,7 +91,15 @@ public class SanskritString {
 			 case 0x900:
 			 case 0x901:
 			 case 0x902:
-				 out.add(0x902);
+				 int a = getAnusvara(n);
+				 if(a>0){
+					 if(a!=0x902){
+						 out.add(a);
+						 out.add(0x94d);
+					 }else{
+						 out.add(0x902);
+					 }
+				 }
 				 break;
 			 case 0x903:
 				 out.add(i);
@@ -318,16 +326,6 @@ public class SanskritString {
 				 out.add(i);
 			 }
 		 }
-		 for(int idx=0; idx<out.size(); idx++){
-			 if(out.get(idx)==0x902){
-				 if(idx<out.size()-1){
-					 out.set(idx, getAnusvara(out.get(idx+1)));
-				 }else{
-					 out.set(idx, getAnusvara(out.get(0)));
-				 }
-			 }
-		 }
-		 while(out.remove(new Integer(0)));
 		 
 		 int[] outArray=new int[out.size()];
 		 for(int idx=0; idx<out.size(); idx++){
