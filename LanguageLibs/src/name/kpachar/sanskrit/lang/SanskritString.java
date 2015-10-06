@@ -8,6 +8,7 @@ public class SanskritString {
 	private int[] codepoints;
 	//TODO: Use Guava's interner and get rid of this constructor to avoid duplicate SanskritString objects with the same content
 	public SanskritString(String s){
+		//System.out.println("new SanskritString:"+s);
 		if(s==null){
 			codepoints=new int[0];
 		}
@@ -16,6 +17,7 @@ public class SanskritString {
 	}
 
 	public String toCanonicalString(){
+	    //System.out.println("canonical string:"+new String(codepoints, 0, codepoints.length));
 		return new String(codepoints, 0, codepoints.length);
 	}
 	public String getOriginalString(){
@@ -118,12 +120,17 @@ public class SanskritString {
 				 out.add(i);
 				 break;
 			 case 0x90d:
+				 out.add(0x90f);
+				 break;
 			 case 0x90e:
+				 out.add(0x910);
+				 break;
 			 case 0x90f:
 				 out.add(0x90f);
 				 break;
 			 case 0x910:
 				 out.add(i);
+				 break;
 			 case 0x911:
 				 out.add(0x906);
 				 break;
@@ -384,4 +391,8 @@ public class SanskritString {
 				 return 0;
 		 }
 	 }
+
+	public static String clean(String s) {
+		return new SanskritString(s).toCanonicalString();
+	}
 }

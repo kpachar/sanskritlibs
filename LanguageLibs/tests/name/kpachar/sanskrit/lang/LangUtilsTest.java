@@ -21,6 +21,9 @@ public class LangUtilsTest {
 		assertEquals(LangUtils.sandhi("महा", "ऋषि"), "महर्षि");
 		assertEquals(LangUtils.sandhi("देव", "ऋषि"), "देवर्षि");
 		
+		assertEquals(LangUtils.sandhi("ब्रह्म", "ऎश्वर्यम्"), "ब्रह्मैश्वर्यम्");
+		assertEquals(LangUtils.sandhi("महा", "औजस"), "महौजस");
+		
 	}
 
 }

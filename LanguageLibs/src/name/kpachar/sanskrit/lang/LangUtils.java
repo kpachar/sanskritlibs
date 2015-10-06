@@ -21,7 +21,7 @@ public class LangUtils {
 					continue;
 				}
 				line=line.replaceAll("\\s+"," ");
-				line=line.trim();
+				line=SanskritString.clean(line.trim());
 				if(line.indexOf("=")<0){
 					continue;
 				}
@@ -52,14 +52,18 @@ public class LangUtils {
 	public static String sandhi(String a, String b){
 		int[] codePointsA = new SanskritString(a).getCodepoints();
 		int[] codePointsB = new SanskritString(b).getCodepoints();;
+		//System.out.println(SanskritString.toString(codePointsA)+ " + " + SanskritString.toString(codePointsB));
 		StringBuffer sb = new StringBuffer();
 		for(int i=0; i<codePointsA.length - 1; i++){
 			sb.append(Character.toChars(codePointsA[i]));
 		}
+		//System.out.println(sb);
 		sb.append(sandhi(codePointsA[codePointsA.length-1], codePointsB[0]));
+		//System.out.println(sb);
 		for(int i=1; i<codePointsB.length; i++){
 			sb.append(Character.toChars(codePointsB[i]));
 		}
+		//System.out.println(sb);
 		String result = SanskritString.toString(JavaStringUtils.codePoints(sb.toString()));
 		System.out.println(result);
 		return result;
