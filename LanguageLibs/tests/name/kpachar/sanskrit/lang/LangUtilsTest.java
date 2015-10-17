@@ -28,7 +28,8 @@ public class LangUtilsTest {
 		assertEquals(LangUtils.sandhi("पान्तु", "अस्मान्"), "पान्त्वस्मान्");
 		assertEquals(LangUtils.sandhi("पितृ", "अर्थे"), "पित्रर्थे");
 		
-		
+		assertEquals(LangUtils.sandhi("के", "अपि"), "केपि");
+		assertEquals(LangUtils.sandhi("को", "अपि"), "कोपि");
 	}
 
 }
